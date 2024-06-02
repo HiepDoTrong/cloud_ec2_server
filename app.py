@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 from collections import Counter
 import re
+import boto3
+
 
 app = Flask(__name__)
 
@@ -10,6 +12,13 @@ with open('model.pkl', 'rb') as file:
 
 with open('vectorizer.pkl', 'rb') as file:
     vectorizer = pickle.load(file)
+
+s3 = boto3.recource(
+    service_name='s3',
+    region_name='us-east-1',
+    aws_access_key_id='ASIASS5O5DYS264JA6RI',
+    aws_secret_access_key='Icxllp0J1qUwU/tC8KyGSfCS3x61TxFxLAnCKX9k'
+)
 
 def ngram(token, n): 
     output = []
